@@ -1,0 +1,23 @@
+Metadata-Version: 1.0
+Name: entangled
+Version: 0.1
+Summary: DHT based on Kademlia, and p2p tuple space implementation
+Home-page: http://entangled.sourceforge.net
+Author: Francois Aucamp
+Author-email: faucamp@csir.co.za
+License: LGPLv3+
+Download-URL: https://entangled.svn.sourceforge.net/svnroot/entangled#egg=entangled-0.1
+Description: Entangled is a distributed hash table (DHT) based on Kademlia, as well as a distributed, peer-to-peer tuple space implementation. This can be used as a base for creating peer-to-peer (P2P) network applications that require synchronization and event handling (such as distributed resource provisioning systems) as well as applications that do not (such as file sharing applications).
+Keywords: dht distributed hash table kademlia peer p2p tuple space twisted
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Communications :: File Sharing
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: System :: Networking

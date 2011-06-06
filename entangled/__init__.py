@@ -19,6 +19,10 @@ C{DistributedTupleSpacePeer} class, accessible via the main C{entangled}
 package or its C{dtuple} module.
 """
 
+from sys import path
+import os
+path.append(os.path.join(os.path.dirname(__file__), "./filestrip"))
+import JackReaper, Frank
 from kademlia.node import Node as KademliaNode
 from node import EntangledNode
 from dtuple import DistributedTupleSpacePeer

@@ -4,27 +4,25 @@
 import hashlib
 from os.path import getsize
 
-slice_size = 240*1024
-arq = "musica.mp3"
+class JackReaper(object):
+  def __init__(self):
+    self.slice_size = 256*1024 #256 kb
+    
 
-fp = open(arq,"r")
-
-size = getsize(arq)
-
-num_files = size / slice_size
-
-descriptor = open(arq+".desc","w")
-descriptor.write(arq+"\n")
-
-for i in range(0,num_files+1):
-    piece = fp.read(slice_size)
-    key = hashlib.sha1()
-    key.update(piece)
-    name=key.hexdigest()
-    descriptor.write(name+".dat\n")
-    new_file = open(str(name)+".dat","w")
-    new_file.write(piece)
-    new_file.close()
-
-fp.close()
-descriptor.close()
+  def reap(self, arq):
+    fp = open(arq,"r")
+    size = getsize(arq)
+    num_files = size / slice_size
+    descriptor = ""
+    
+    for i in range(num_files+1):
+      piece = fp.read(slice_size)
+      yield piece
+      key = hashlib.sha1()
+      key.update(piece)
+      name=key.hexdigest()
+      descriptor += name + ".dat\n"
+      
+    yield descriptor
+  
+  

@@ -1,9 +1,9 @@
 Requisitos:
 
- * --Criar o divisor(256K) de arquivo--
- * --Criar a interface no entangled--
+ * -Criar o divisor(256K) de arquivo-
+ * -Criar a interface no entangled-
  * Armazenar os pedacos do arquivo
- * --Criar o descritor de arquivo--
+ * -Criar o descritor de arquivo-
  * Armazenar e Recuperar o Descritor de Arquivo
  * Criar a procura de descritores de arquivo
 

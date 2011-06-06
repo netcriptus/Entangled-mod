@@ -272,8 +272,59 @@ class EntangledViewerWindow(gtk.Window):
         notebook.set_tab_pos(pos=gtk.POS_TOP)
         notebook.show()
         vbox.pack_start(notebook,expand=False, fill=False)
+
+        #trabalho
+        trabalhoVbox = gtk.VBox(spacing=3)
+        trabalhoVbox.show()
+        notebook.append_page(trabalhoVbox, gtk.Label('Trabalho Kademlia'))
+        frame = gtk.Frame()
+        frame.set_label('Armazenamento')
+        frame.show()
+        trabalhoVbox.pack_start(frame)
         
-        
+        trabalhoTabVbox = gtk.VBox(spacing=3)
+        trabalhoTabVbox.show()
+        frame.add(trabalhoTabVbox)
+
+        # Armazena
+        hbox = gtk.HBox(False, 8)
+        hbox.show()
+        label = gtk.Label("Arquivo:")
+        hbox.pack_start(label, False, False, 0)
+        label.show()
+        #entryKey = gtk.Entry()
+        #hbox.pack_start(entryKey, expand=True, fill=True)
+        #entryKey.show()
+        dialog = chooser = gtk.FileChooserDialog("Selecione...",action=gtk.FILE_CHOOSER_ACTION_OPEN,
+                                  buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,gtk.RESPONSE_OK))
+        file_button = gtk.FileChooserButton(dialog)
+        file_button.set_width_chars(10)
+        hbox.pack_start(file_button, False, False, 0)
+        file_button.show()
+        button = gtk.Button('Enviar')
+        hbox.pack_start(button, expand=False, fill=False)
+        button.connect("clicked", self.armazenaArquivo, dialog.get_filename)
+        button.show()
+        trabalhoTabVbox.pack_start(hbox, expand=False, fill=False)
+
+        # Busca
+        hbox = gtk.HBox(False, 8)
+        hbox.show()
+        label = gtk.Label("Palavra Chave:")
+        hbox.pack_start(label, False, False, 0)
+        label.show()
+        entryKey = gtk.Entry()
+        hbox.pack_start(entryKey, expand=True, fill=True)
+        entryKey.show()
+        button = gtk.Button('Procurar')
+        hbox.pack_start(button, expand=False, fill=False)
+        vbox = gtk.VBox(False, 5)
+        vbox.show()
+        button.connect("clicked", self.showSearch, vbox, entryKey.get_text)
+        button.show()
+        trabalhoTabVbox.pack_start(hbox, expand=False, fill=False)
+        trabalhoTabVbox.pack_start(vbox, expand=False, fill=False)
+                
         #notebook.append_page(frame, gtk.Label('Low-level DHT controls'))
         lowlevelVbox = gtk.VBox(spacing=3)
         lowlevelVbox.show()
@@ -502,8 +553,35 @@ class EntangledViewerWindow(gtk.Window):
         button.show()
         tupleSpaceVbox.pack_start(hbox, expand=False, fill=False)
         
+    def showSearch(self, sender, trabalhoVbox, getKey):
+        key = getKey()
+        # limpa a busca
+        for child in trabalhoVbox:
+            trabalhoVbox.remove(child)
+        # mostra a busca
+        for i in range(3):
+            hbox = gtk.HBox(False, 4)
+            hbox.show()
+            label = gtk.Label(key)
+            hbox.pack_start(label, False, False, 0)
+            label.show()
+            button = gtk.Button("Baixar")
+            hbox.pack_start(button, False, False, 0)
+            button.show()
+            trabalhoVbox.pack_start(hbox, expand=False, fill=False)
+    
+    def armazenaArquivo(self, sender, valueFunc):        
+        nome_arq = valueFunc()
+        print nome_arq
+        #self.viewer.msgCounter = 0
+        #self.viewer.printMsgCount = False
         
-        
+        #def completed(result):
+        #    self.viewer.printMsgCount = True
+
+        #df = self.node.iterativeStore(hKey, value)
+        #df.addCallback(completed)
+    
 
     def publishData(self, sender, nameFunc, valueFunc):
         name = nameFunc()
@@ -514,7 +592,7 @@ class EntangledViewerWindow(gtk.Window):
             self.viewer.printMsgCount = True
         df = self.node.publishData(name, value)
         df.addCallback(completed)
-        
+    
     def storeValue(self, sender, keyFunc, valueFunc):
         key = keyFunc()
         

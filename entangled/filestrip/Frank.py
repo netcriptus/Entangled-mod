@@ -23,8 +23,8 @@ class Frank(object):
     file_out.close()
     
   def parseDescriptor(self, descriptor):
-      """Given a descriptor, this function parses its information, keeps the
-      filename and returns a list of keys that form that file."""
+    """Given a descriptor, this function parses its information, keeps the
+    filename and returns a list of keys that form that file."""
     
     self.file_name = descriptor[0].strip("\n")
     pieces_list = [piece.strip("\n") for piece in descriptor[1::]]

@@ -1,14 +1,14 @@
 Requisitos:
- - --Criar o divisor(256K) de arquivo--
- - --Criar a interface no entangled--
- - Armazenar os pedacos do arquivo
- - --Criar o descritor de arquivo--
- - Armazenar e Recuperar o Descritor de Arquivo
- - Criar a procura de descritores de arquivo
+ * --Criar o divisor(256K) de arquivo--
+ *--Criar a interface no entangled--
+ * Armazenar os pedacos do arquivo
+ * --Criar o descritor de arquivo--
+ * Armazenar e Recuperar o Descritor de Arquivo
+ * Criar a procura de descritores de arquivo
 
 Bonus:
- - Criar o mini-peer
- - Fazer o mini-peer se comunicar
- - Criar a inferface no celular
- - Enviar as fotos do celular pela rede
- - Salvar videos pela rede
+ * Criar o mini-peer
+ * Fazer o mini-peer se comunicar
+ * Criar a inferface no celular
+ * Enviar as fotos do celular pela rede
+ * Salvar videos pela rede

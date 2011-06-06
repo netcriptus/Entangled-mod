@@ -1,20 +1,18 @@
 #!/usr/bin/env python
-import os
+# encoding: utf-8
 
-slice_size = 240*1024
+class Frank(object):
+  def __init__(self):
+    self.file_name = None
 
-desc = open("musica.mp3.desc","r")
 
-name = desc.readline().strip("\n")
-file_out = open("out_"+name,"w")
-
-lines = desc.readlines()
-desc.close()
-for line in lines:
-    file_tmp = open(line.strip("\n"),"r")
-    piece = file_tmp.read()
-    file_out.write(piece)
-    file_tmp.close()
+  def neat(self, file_parts, save_path):
+    file_out = open(save_path + self.file_name, "w")
+    full_file = "".join(file_parts)
+    file_out.write(full_file)
+    file_out.close()
     
-
-file_out.close()
+  def parseDescriptor(self, descriptor):
+    self.file_name = descriptor[0].strip("\n")
+    pieces_list = [piece.strip("\n") for piece in descriptor[1::]]
+    return pieces_list

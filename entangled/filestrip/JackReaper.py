@@ -24,7 +24,7 @@ class JackReaper(object):
     
     fp = open(arq,"r")
     size = getsize(arq)
-    num_files = size / slice_size
+    num_files = size / self.slice_size
     descriptor = ""
     
     for i in range(num_files+1):

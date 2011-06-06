@@ -28,7 +28,7 @@ class JackReaper(object):
     descriptor = ""
     
     for i in range(num_files+1):
-      value = fp.read(slice_size)
+      value = fp.read(self.slice_size)
       key=self.__getKey(value)
       yield (key, value)
       descriptor += key + ".dat\n"

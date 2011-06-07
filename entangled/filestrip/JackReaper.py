@@ -16,7 +16,7 @@ class JackReaper(object):
     """Given a value, it will return a sha1 digest for that value"""
     sha = hashlib.sha1()
     sha.update(value)
-    return sha.hexdigest()
+    return sha.digest()
 
   def reap(self, arq):
     """Given a file, it will be cut down to 256kb pieces. A descriptor will be
@@ -31,7 +31,7 @@ class JackReaper(object):
       value = fp.read(self.slice_size)
       key=self.__getKey(value)
       yield (key, value)
-      descriptor += key + ".dat\n"
+      descriptor += key
       
     key = self.__getKey(descriptor)
     yield (key, descriptor)

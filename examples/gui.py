@@ -22,6 +22,7 @@ import entangled.kademlia.msgtypes
 import hashlib
 
 from entangled import JackReaper
+import os
 
 class EntangledViewer(gtk.DrawingArea):
     def __init__(self, node, *args, **kwargs):
@@ -557,38 +558,83 @@ class EntangledViewerWindow(gtk.Window):
         
     def showSearch(self, sender, trabalhoVbox, getKey):
         key = getKey()
-        # limpa a busca
-        for child in trabalhoVbox:
-            trabalhoVbox.remove(child)
-        # mostra a busca
-        for i in range(3):
-            hbox = gtk.HBox(False, 4)
-            hbox.show()
-            label = gtk.Label(key)
-            hbox.pack_start(label, False, False, 0)
-            label.show()
-            button = gtk.Button("Baixar")
-            hbox.pack_start(button, False, False, 0)
-            button.show()
-            trabalhoVbox.pack_start(hbox, expand=False, fill=False)
+        h = hashlib.sha1()
+        h.update(key)
+        hKey = h.digest()
+
+        self.viewer.msgCounter = 0
+        self.viewer.printMsgCount = False
+        def showValue(result):
+            val = result.values()
+            print val
+            # limpa a busca
+            for child in trabalhoVbox:
+                trabalhoVbox.remove(child)
+            # mostra a busca
+            for i in result.values():
+                hbox = gtk.HBox(False, 4)
+                hbox.show()
+                label = gtk.Label(i)
+                hbox.pack_start(label, False, False, 0)
+                label.show()
+                button = gtk.Button("Baixar")
+                hbox.pack_start(button, False, False, 0)
+                button.show()
+                trabalhoVbox.pack_start(hbox, expand=False, fill=False)
+
+            #sender.set_sensitive(True)
+            #entryKey.set_sensitive(True)
+            #if type(result) == dict:
+            #    value = result[hKey]
+            #    if type(value) != str:
+            #        value = '%s: %s' % (type(value), str(value))
+            #else:
+            #    value = '---not found---'
+            #showFunc(value)
+            #self.viewer.printMsgCount = True
+        def error(failure):
+            print 'GUI: an error occurred:', failure.getErrorMessage()
+            sender.set_sensitive(True)
+            entryKey.set_sensitive(True)
+        
+        df = self.node.iterativeFindValue(hKey)
+        df.addCallback(showValue)
+        df.addErrback(error)
+  
     
     def armazenaArquivo(self, sender, valueFunc):        
         nome_arq = valueFunc()
         
         jack = JackReaper()
 
+        hKey=""
+        value=""
+        def completed(result):
+            self.viewer.printMsgCount = True
+            print "enviado"
+
         for piece in jack.reap(nome_arq):
-            print piece[0]
+            hKey = piece[0]
+            value = piece[1]
 
-        #self.viewer.msgCounter = 0
-        #self.viewer.printMsgCount = False
-        
-        #def completed(result):
-        #    self.viewer.printMsgCount = True
+            self.viewer.msgCounter = 0
+            self.viewer.printMsgCount = False
 
-        #df = self.node.iterativeStore(hKey, value)
-        #df.addCallback(completed)
-    
+            df = self.node.iterativeStore(hKey, value)
+            df.addCallback(completed)
+
+        # ------ Chaves
+        self.viewer.msgCounter = 0
+        self.viewer.printMsgCount = False
+
+        nome_arq = os.path.basename(nome_arq)
+        print nome_arq
+        h = hashlib.sha1()
+        h.update(nome_arq)
+        hKey = h.digest()
+
+        df = self.node.iterativeStore(hKey, nome_arq)
+        df.addCallback(completed)
 
     def publishData(self, sender, nameFunc, valueFunc):
         name = nameFunc()

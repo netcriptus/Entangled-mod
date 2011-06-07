@@ -21,6 +21,8 @@ import entangled.kademlia.msgtypes
 
 import hashlib
 
+from entangled import JackReaper
+
 class EntangledViewer(gtk.DrawingArea):
     def __init__(self, node, *args, **kwargs):
         gtk.DrawingArea.__init__(self, *args, **kwargs)
@@ -572,7 +574,12 @@ class EntangledViewerWindow(gtk.Window):
     
     def armazenaArquivo(self, sender, valueFunc):        
         nome_arq = valueFunc()
-        print nome_arq
+        
+        jack = JackReaper()
+
+        for piece in jack.reap(nome_arq):
+            print piece[0]
+
         #self.viewer.msgCounter = 0
         #self.viewer.printMsgCount = False
         

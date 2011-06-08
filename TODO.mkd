@@ -2,10 +2,11 @@ Requisitos:
 
  * <del>Criar o divisor(256K) de arquivo</del>
  * <del>Criar a interface no entangled</del>
- * Armazenar os pedacos do arquivo
+ * <del>Armazenar os pedacos do arquivo</del>
  * <del>Criar o descritor de arquivo</del>
- * Armazenar e Recuperar o Descritor de Arquivo
- * Criar a procura de descritores de arquivo
+ * <del>Armazenar e Recuperar o Descritor de Arquivo</del>
+ * <del>Criar a procura de descritores de arquivo</del>
+ * Debugar - Por que existem pedaços faltando no arquivo?
 
 Bonus:
 

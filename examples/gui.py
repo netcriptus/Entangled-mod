@@ -574,7 +574,8 @@ class EntangledViewerWindow(gtk.Window):
             for i in result.values():
                 hbox = gtk.HBox(False, 4)
                 hbox.show()
-                label = gtk.Label(i)
+                palavra = i[0]
+                label = gtk.Label(palavra)
                 hbox.pack_start(label, False, False, 0)
                 label.show()
                 button = gtk.Button("Baixar")
@@ -628,12 +629,14 @@ class EntangledViewerWindow(gtk.Window):
         self.viewer.printMsgCount = False
 
         nome_arq = os.path.basename(nome_arq)
-        print nome_arq
+        value = []
+        value.append(nome_arq)
+        value.append(hKey)
         h = hashlib.sha1()
         h.update(nome_arq)
-        hKey = h.digest()
+        cKey = h.digest()
 
-        df = self.node.iterativeStore(hKey, nome_arq)
+        df = self.node.iterativeStore(cKey, value)
         df.addCallback(completed)
 
     def publishData(self, sender, nameFunc, valueFunc):

@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import hashlib
+from math import ceil
 from os.path import getsize
 
 class JackReaper(object):
@@ -24,16 +25,18 @@ class JackReaper(object):
     
     fp = open(arq,"r")
     size = getsize(arq)
-    num_files = size / self.slice_size
-    descriptor = ""
+    num_files = ceil(size / float(self.slice_size))
+    descriptor = []
     
-    for i in range(num_files+1):
+    for i in range(num_files):
       value = fp.read(self.slice_size)
       key=self.__getKey(value)
       yield (key, value)
-      descriptor += key
+      descriptor.append(key)
       
-    key = self.__getKey(descriptor)
-    yield (key, descriptor)
+    fp.close()
+    descriptor = descriptor
+    key = self.__getKey(str(descriptor))
+    yield (key, str(descriptor))
   
   

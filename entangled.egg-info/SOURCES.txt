@@ -24,7 +24,6 @@ entangled/kademlia/node.py
 entangled/kademlia/protocol.py
 entangled/kademlia/routingtable.py
 examples/create_network.py
-examples/fileshare.py
 examples/gui.py
 tests/runalltests.py
 tests/testContact.py

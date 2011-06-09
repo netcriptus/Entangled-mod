@@ -5,9 +5,11 @@
 # See the COPYING file included in this archive
 #
 
+from os import path
+import sys, gtk, gobject, cairo
+sys.path.append(path.join(path.dirname(__file__), "../"))
 import pygtk
 pygtk.require('2.0')
-import sys, gtk, gobject, cairo
 import math
 
 from twisted.internet import gtk2reactor
@@ -22,7 +24,7 @@ import entangled.kademlia.msgtypes
 import hashlib
 
 from entangled import JackReaper
-from os import path
+
 
 class EntangledViewer(gtk.DrawingArea):
     def __init__(self, node, *args, **kwargs):
@@ -35,12 +37,12 @@ class EntangledViewer(gtk.DrawingArea):
         self.node._protocol.__gui = self
         self.node._protocol.__realSendRPC = self.node._protocol.sendRPC
         self.node._protocol.sendRPC = self.__guiSendRPC
-    
+
         self.node._protocol.__realDatagramReceived = self.node._protocol.datagramReceived
         self.node._protocol.datagramReceived = self.__guiDatagramReceived
         self.msgCounter = 0
         self.printMsgCount = False
-        
+
     def __guiSendRPC(self, contact, method, args, rawResponse=False):
         #print 'sending'
         self.drawComms(contact.id, method)

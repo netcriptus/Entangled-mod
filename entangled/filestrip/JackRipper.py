@@ -5,7 +5,7 @@ import hashlib
 from math import ceil
 from os.path import getsize
 
-class JackReaper(object):
+class JackRipper(object):
   """This class is supposed to tear a tear apart a large file into many 256kb
   files, and creator a descriptor which gives us the names of each part"""
   def __init__(self):
@@ -19,7 +19,7 @@ class JackReaper(object):
     sha.update(value)
     return sha.digest()
 
-  def reap(self, arq):
+  def rip(self, arq):
     """Given a file, it will be cut down to 256kb pieces. A descriptor will be
     created and yielded"""
     

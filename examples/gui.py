@@ -407,13 +407,13 @@ class EntangledViewerWindow(gtk.Window):
     def armazenaArquivo(self, sender, valueFunc):        
         nome_arq = valueFunc()
         
-        jack = JackReaper()
+        jack = JackRipper()
 
         def completed(result):
             self.viewer.printMsgCount = True
             print "enviado"
 
-        for piece in jack.reap(nome_arq):
+        for piece in jack.rip(nome_arq):
             hKey = piece[0]
             value = piece[1]
 

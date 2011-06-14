@@ -6,7 +6,7 @@ Requisitos:
  * <del>Criar o descritor de arquivo</del>
  * <del>Armazenar e Recuperar o Descritor de Arquivo</del>
  * <del>Criar a procura de descritores de arquivo</del>
- * Debugar - Por que existem pedaços faltando no arquivo?
+ * <del>Debugar - Por que existem pedaços faltando no arquivo?</del>
 
 Bonus:
 

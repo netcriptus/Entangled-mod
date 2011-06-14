@@ -23,7 +23,7 @@ import entangled.kademlia.msgtypes
 
 import hashlib
 
-from entangled import JackReaper
+from entangled import JackRipper
 
 
 class EntangledViewer(gtk.DrawingArea):
